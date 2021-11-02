@@ -5,14 +5,13 @@
 // selectively enable features needed in the rendering
 // process.
 //let { remote, ipcRenderer, ipcMain } = require("electron");
-var io = require('socket.io-client');
 const { ipcRenderer } = require('electron');
-const {dialog} = require("electron").remote;
+const {dialog,app} = require("electron").remote;
 
 let $ = jQuery = require('jquery')
-//require('dotenv').config(); 
-
 $('#password').keydown(onKeyDown);
+
+ipcRenderer.send('logincheck');
 
 function onKeyDown(event) {
   if (event.keyCode == 13 && event.shiftKey) {
@@ -28,16 +27,25 @@ function onConnetion(){
   console.log($('#id').val());
   console.log($('#password').val());
   var login = { 
+    _id:'autologin',
     id:$('#id').val(),
-    pwd: $('#password').val()
+    pwd: $('#password').val(),
+    autologin: false
   }
-  
+  if($('#autologin ').is(':checked')){
+    login.autologin = true;
+   // db.insert([login]);
+  }
   ipcRenderer.send('data',login)
 }
 
 ipcRenderer.on('message',(evt,data)=>{
   console.log(data);
   dialogMsg('error',"login error",data);
+});
+
+ipcRenderer.on('check',(evt,data)=>{
+  console.log(data);
 });
 
 function dialogMsg(type, title, msg){ //통합경고창

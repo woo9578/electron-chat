@@ -4,30 +4,40 @@
 body{
 	background-color:#abd9e9;
 	font-family:Arial;
+	height: 100vh;
+	display: block;
+	margin: 0;
 }
 #container{
-	width:750px;
-	height:800px;
-	background:#eff3f7;
-	margin:0 auto;
+	/* width:750px; 
+	height:800px; 
+	margin:0 auto; 
+	background:#eff3f7; */
+	background-color:#abd9e9;
+	padding: 8px 8px 8px 8px;
 	font-size:0;
 	border-radius:5px;
 	overflow:hidden;
 }
 aside{
-	width:260px;
-	height:800px;
+	/* width:260px; 	
+	 height:800px; */
+	width:25%;
+	height: 98vh;
 	background-color:#3b3e49;
 	display:inline-block;
 	font-size:15px;
 	vertical-align:top;
 }
 main{
-	width:490px;
-	height:800px;
+	/* width:490px;
+	height:800px; */
+	width:75%;
+	height: 98vh;
 	display:inline-block;
 	font-size:15px;
 	vertical-align:top;
+	background: #eff3f7;
 }
 
 aside header{
@@ -55,10 +65,10 @@ aside ul{
 	margin:0;
 	list-style-type:none;
 	overflow-y:auto;
-	height:690px;
+	/* height:690px; */
 }
 aside li{
-	padding:10px 0;
+	padding:10px 20px;
 }
 aside li:hover{
 	background-color:#5e616a;
@@ -108,7 +118,8 @@ aside li h3{
 }
 
 main header{
-	height:110px;
+	/* height:110px; */
+	height: 13vh;
 	padding:30px 20px 30px 40px;
 }
 main header > *{
@@ -141,7 +152,8 @@ main header h3{
 	margin:0;
 	list-style-type:none;
 	overflow-y:auto;
-	height:535px;
+	/* height:535px; */
+	height: 70vh;
 	border-top:2px solid #fff;
 	border-bottom:2px solid #fff;
 }
@@ -156,6 +168,7 @@ main header h3{
 #chat h3{
 	color:#bbb;
 }
+
 #chat .entete{
 	margin-bottom:5px;
 }
@@ -189,11 +202,14 @@ main header h3{
 }
 #chat .me .triangle{
 		border-color: transparent transparent #6fbced transparent;
-		margin-left:375px;
+		/* margin-left:375px; */
+		margin-left: auto;
+    margin-right: 10px;
 }
 
 main footer{
-	height:155px;
+	/* height:155px; */
+	height: 17vh;
 	padding:20px 20px 10px 20px;
 }
 main footer textarea{
@@ -255,4 +271,34 @@ main footer a{
 div button:disabled {
 	color: #D7D7D7;
 	background: #F9F9F9;
+}
+
+div.timeformat{
+	margin-left: 7px;
+	color: rgb(167, 167, 170);
+	font-size: 0.9rem !important;
+	line-height: 0.98rem !important;
+	display: inline-block;
+}
+
+.badge {
+	display: inline-block;
+	padding: .25em .4em;
+	font-size: 75%;
+	font-weight: 700;
+	line-height: 1;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: baseline;
+	border-radius: .25rem;
+	transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.badge-primary {
+	color: #fff;
+	background-color: rgb(50, 180, 194);;
+}
+
+.badge-rounded {
+	border-radius: 6.25rem;
 }

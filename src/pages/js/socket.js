@@ -1,10 +1,11 @@
 var sendData = {};
 var roominfo = [];
 var socket;
+//var io = require('socket.io-client');
 var scroll;
 $(document).ready(()=>{
   socket = io('https://ttos-arena.com:3006',{ transports: ['websocket'] });
-  console.log(socket);
+  //console.log(socket);
   socket.emit('join-user', { roomname: '' , username: '',type:'manager' });
   
   socket.on('roomcreat',roomData); // 생성된 방 정보 가져오기
@@ -27,7 +28,7 @@ $(document).ready(()=>{
 
   $(document).on('click','.roomlist',function(){
     $('#chat').html('');
-    console.log(roominfo[`${$(this).attr('id')}`])
+    //console.log(roominfo[`${$(this).attr('id')}`])
     sendData = roominfo[`${$(this).attr('id')}`];
     const {username , roomname} = sendData;
     $('#username').text(username);
@@ -35,9 +36,12 @@ $(document).ready(()=>{
     //socket.emit('chat_connection',roomconnetion);
 
     $('#send-button, #chatmsg').attr('disabled',false);
-    
+    $(this).find('span').attr('class','status green');
+    $('.roomlist').not($(this)).find('span').attr('class','status orange');
+    $(this).find('.badge').remove();
+
     socket.emit('chatsave',sendData,(calldata)=>{ //여기 채팅 내역 가져오기
-      console.log(calldata);
+      //console.log(calldata);
       for(var i in calldata){
         if(calldata[i].type == "client"){
           onMessageReceived(calldata[i]);
@@ -54,38 +58,42 @@ $(document).ready(()=>{
 
 
 function roomCheck(data){
-  console.log(data)
-  //for(var value of data){
   for(var value in data){
     roomCreate(data[value]);
   }
 }
 
 function roomData(data){
-  var noti_title = '방이 생성 되었습니다.';
-  var noti_body = '방이 생성 되었습니다. 해당 내용을 보시려면 노티를 클릭해주세요';
+  var noti_title = '고객이 상담을 요청했습니다.';
+  var noti_body = '고개 상담을 확인해주세요. 해당 내용을 보시려면 노티를 클릭해주세요';
   notifcation(noti_title,noti_body);
   roomCreate(data);
 }
 function roomCreate(data){ //방생성
-  $('#chatroom').append(`<li id='${data.id}' class='roomlist'><div><h2>${data.username}</h2><h3>
-                          <span class="status orange"></span>
+  $('#chatroom').append(`<li id='${data.id}' class='roomlist'><div><h2>${data.username}</h2>
+                          <h3><span class="status orange"></span>
                           ${data.roomname}</h3></div></li>`)
   roominfo[data.id] = data;
 }
 
 function onMessageReceived(data){
-  console.log(data);
   if(data.socket_id == sendData.socket_id){
     var msg = `<li class="you">
                 <div class="entete">
                   <span class="status green"></span>
                   <h2>${data.username}</h2>
+                  <div class="timeformat">${data.time}</div>
                 </div>
                 <div class="triangle"></div>
                 <div class="message">${data.message}</div>
               </li>`
     chatAdd(msg);
+  }else{
+    var chatalime = `<div class="badge badge-rounded badge-primary ml-1">&#33;</div>`
+    var checkChat = $(`#${data.id}`); 
+    if(!checkChat.find('div').is('.badge')){
+      checkChat.append(chatalime);
+    }
   }
 }
 
@@ -94,6 +102,7 @@ function emitMessage(sendData){
             <div class="entete">
               <span class="status green"></span>
               <h2>서비스 지원</h2>
+              <div class="timeformat">${sendData.time}</div>
             </div>
             <div class="triangle"></div>
             <div class="message">${sendData.message}</div>
@@ -102,7 +111,7 @@ function emitMessage(sendData){
 }
 
 function onDisconnetion(data){//상담 종료
-  console.log(data);
+  //console.log(data);
   if(data.action == 'exited'){
     $(`#${data.data.id}`).remove();
     $('#chat').children('li').remove();
@@ -141,6 +150,7 @@ function sendMsg(sendData){ //메세지 보내기
   sendData.type = 'manager';
   sendData.username = '서비스 지원';
   sendData.message= $('#chatmsg').val();
+  sendData.time = timeFormat();
   socket.emit('room-chat',sendData);
   emitMessage(sendData);
 }
@@ -154,4 +164,12 @@ function disconneion(){ //소켓 연결 끊김
 
 function scrollEnd(){ //스크롤 맨 하단 
   scroll.scrollTop(scroll[0].scrollHeight - scroll.height());
+}
+
+function timeFormat(){
+  var time = new Date();
+  
+  return time.toLocaleString('en-US',{hour: '2-digit',
+                                      minute: '2-digit', 
+                                      hour12: true })
 }

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
+    <link rel="stylesheet" type="text/css" href="../../public/css/stylesheet.css" />
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'"> -->
+    
+    <title>Kmenu 상담 지원 서비스</title>
+  </head>
+  <body>
+    <div id="container">
+      <aside>
+        <header>
+          <input type="text" placeholder="search" />
+        </header>
+        <ul id="chatroom">
+          <!-- <li>
+            <div>
+              <h2>Prénom Nom</h2>
+              <h3><span class="status orange"></span>offline</h3>
+            </div>
+          </li>
+          <li>
+            <div>
+              <h2>Prénom Nom</h2>
+              <h3><span class="status green"></span>online</h3>
+            </div>
+          </li> -->
+        </ul>
+      </aside>
+      <!--main(style='display: none')-->
+      <main>
+        <header>
+          <div>
+            <h2 id="username"></h2>
+            <h3 id="roomname"></h3>
+          </div>
+        </header>
+        <ul id="chat">
+          <!-- <li class="you">
+            <div class="entete"><span class="status green"></span>
+              <h2>Vincent</h2>
+              <h3>10:12AM, Today</h3>
+            </div>
+            <div class="triangle"></div>
+            <div class="message">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</div>
+          </li>
+          <li class="me">
+            <div class="entete">
+              <h3>10:12AM, Today</h3>
+              <h2>Vincent</h2><span class="status blue"></span>
+            </div>
+            <div class="triangle"></div>
+            <div class="message">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</div>
+          </li>
+          <li class="me">
+            <div class="entete">
+              <h3>10:12AM, Today</h3>
+              <h2>Vincent</h2><span class="status blue"></span>
+            </div>
+            <div class="triangle"></div>
+            <div class="message">OK</div>
+          </li>
+          <li class="you">
+            <div class="entete"><span class="status green"></span>
+              <h2>Vincent</h2>
+              <h3>10:12AM, Today</h3>
+            </div>
+            <div class="triangle"></div>
+            <div class="message">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</div>
+          </li>
+          <li class="me">
+            <div class="entete">
+              <h3>10:12AM, Today</h3>
+              <h2>Vincent</h2><span class="status blue"></span>
+            </div>
+            <div class="triangle"></div>
+            <div class="message">Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.</div>
+          </li>
+          <li class="me">
+            <div class="entete">
+              <h3>10:12AM, Today</h3>
+              <h2>Vincent</h2><span class="status blue"></span>
+            </div>
+            <div class="triangle"></div>
+            <div class="message">OK</div>
+          </li> -->
+        </ul>
+        <footer>
+          <div class='div-msg'>
+            <textarea id="chatmsg" placeholder="Type your message" disabled></textarea>
+            <button class="send-btn" id="send-button" disabled>전송</button>
+          </div>
+        </footer>
+      </main>
+    </div>
+    <!-- You can also require other files to run in this process -->
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+    <!-- <script type="module" src="./node_modules/socket.io/client-dist/socket.io.js"></script> -->
+    <script src="../pages/js/renderer.js"></script>
+    <script src="../pages/js/socket.js"></script>
+    <script src="https://ttos-arena.com:3001/socket.io/socket.io.js"></script>
+    
+
+  </body>
+</html>
